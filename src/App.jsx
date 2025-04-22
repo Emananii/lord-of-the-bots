@@ -41,15 +41,28 @@ function App() {
       });
   }, []);//remember the empty array at the end of the useEffect to prevent infinite loop!!!!
 
+  if (loading) return <p>Bots are navigating the time rift… hold your ground, commander. This may take a minute.</p>;
+  if (error) return <p>Error loading bots: {error}</p>;
+
    // Enlist bot function
    const enlistBot = (bot) => {
-    if (!army.find(member => member.id === bot.id)) {
-      setArmy([...army, bot]);
-      showNotification(` A new oath has been sworn. ${bot.name} marches under your banner.`);
-    } else {
+    const alreadyInArmy = army.find(member => member.id === bot.id);
+    const sameClassExists = army.find(member => member.bot_class === bot.bot_class);
+  
+    if (alreadyInArmy) {
       showNotification(`${bot.name} is already in your army!`);
+      return;
     }
+  
+    if (sameClassExists) {
+      showNotification(`You already have a ${bot.bot_class} in your army. Only one bot per class is allowed.`);
+      return;
+    }
+  
+    setArmy([...army, bot]);
+    showNotification(`A new oath has been sworn. ${bot.name} marches under your banner.`);
   };
+  
 
   const showNotification = (message) => {
     setNotification(message);
@@ -92,8 +105,7 @@ function App() {
       });
   };
 
-  if (loading) return <p>Loading bots...</p>;
-  if (error) return <p>Error loading bots: {error}</p>;
+
 
   function toggleClassFilter(botClass) {
     setSelectedClasses(prev =>
