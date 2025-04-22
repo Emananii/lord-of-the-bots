@@ -165,10 +165,13 @@ button:disabled {
 .bot-specs-container {
   display: flex;
   justify-content: center;
-  padding: 2rem;
+  align-items: center;
+  padding: 1rem;
   background-color: #1a1a1a;
   color: white;
-  min-height: 80vh;
+  height: fit-content;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 .bot-specs-card {
@@ -249,4 +252,51 @@ button:disabled {
   10% { opacity: 1; transform: translateY(0); }
   90% { opacity: 1; transform: translateY(0); }
   100% { opacity: 0; transform: translateY(-10px); }
+}
+/* === HEADER STYLES === */
+
+.header {
+  background-color: #1c1c1c;
+  padding: 20px 0;
+  box-shadow: 0 2px 10px rgba(0, 255, 204, 0.3);
+  top: 0;
+  z-index: 1000;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #00ffcc;
+  text-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
+}
+
+.header-subtitle {
+  font-size: 1rem;
+  color: #aaaaaa;
+  font-style: italic;
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-icon {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(0 0 6px rgba(0, 255, 204, 0.8));
 }
