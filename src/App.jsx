@@ -173,7 +173,8 @@ function App() {
     )}
 
       {view === "compare" && (
-        <CompareView bots={bots} army={army} />
+        <CompareView bots={bots} army={army} onBotClick={setSelectedBot} />
+
       )}
       </>
       )}
