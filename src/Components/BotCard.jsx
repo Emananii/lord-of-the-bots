@@ -1,4 +1,5 @@
 import React from 'react';
+import '../Styles/Botcard.css';
 
 function BotCard({ bot, handleClick, isInArmy = false }) {
   const { name, bot_class, catchphrase, avatar_url, health, damage, armor } = bot;

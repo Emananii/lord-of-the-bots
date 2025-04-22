@@ -1,0 +1,83 @@
+.compare-view {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 20px;
+  flex-wrap: nowrap;
+}
+
+.compare-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.vs-divider {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  font-size: 2.5rem;
+  color: #ff4c4c;
+}
+
+/* Grid of cards in each section */
+.bot-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Forces 2 columns */
+  gap: 12px;
+}
+
+/* Smaller cards */
+.compare-view .bot-card {
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  max-width: 100%;
+  box-shadow: 0 0 6px rgba(0, 255, 204, 0.2);
+  border-radius: 8px;
+}
+
+.compare-view .bot-avatar {
+  width: 100%;
+  max-height: 120px;
+  object-fit: contain; /* 🔄 Change from 'cover' to 'contain' */
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  background-color: #111; /* Optional: fallback background for letterboxing */
+}
+
+
+.compare-view .bot-info h3 {
+  font-size: 1rem;
+}
+
+.compare-view .catchphrase {
+  font-size: 0.75rem;
+  max-height: 2.4em;
+}
+
+.empty-message {
+  font-style: italic;
+  color: #aaa;
+  margin-top: 1rem;
+}
+@media (max-width: 768px) {
+  .compare-view {
+    flex-direction: column;
+  }
+
+  .vs-divider {
+    font-size: 2rem;
+    padding: 20px 0;
+  }
+
+  .bot-grid {
+    grid-template-columns: 1fr; /* Stack on small screens */
+  }
+}

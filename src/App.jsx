@@ -5,7 +5,8 @@ import BotCollection from './Components/BotCollection';
 import YourBotArmy from './Components/YourBotArmy';
 import CompareView from './Components/CompareView';
 import BotSpecs from './Components/BotSpecs';
-import './App.css'
+import SortBar from './Components/SortBar';
+import './Styles/App.css'
 
 function App() {
   const [bots, setBots] = useState([]);
@@ -15,6 +16,9 @@ function App() {
   const [army, setArmy] = useState([]);
   const [selectedBot, setSelectedBot] = useState(null);
   const [notification, setNotification] = useState(null);
+  const [sortBy, setSortBy] = useState("");
+  const [selectedClasses, setSelectedClasses] = useState([]);
+
 
 
 
@@ -91,6 +95,32 @@ function App() {
   if (loading) return <p>Loading bots...</p>;
   if (error) return <p>Error loading bots: {error}</p>;
 
+  function toggleClassFilter(botClass) {
+    setSelectedClasses(prev =>
+      prev.includes(botClass)
+        ? prev.filter(c => c !== botClass)
+        : [...prev, botClass]
+    );
+  }
+//THis is for the botcollection sorting 
+  const filteredBots = bots
+  .filter(bot =>
+    selectedClasses.length === 0 || selectedClasses.includes(bot.bot_class)
+  )
+  .sort((a, b) => {
+    if (!sortBy) return 0;
+    return b[sortBy] - a[sortBy]; // descending
+  });
+  //this one is for the YourBotArmy component's sorting
+  const filteredArmyBots = army
+  .filter(bot =>
+    selectedClasses.length === 0 || selectedClasses.includes(bot.bot_class)
+  )
+  .sort((a, b) => {
+    if (!sortBy) return 0;
+    return b[sortBy] - a[sortBy]; // descending
+  });
+
   return (
   <div className="App">
       <Header />
@@ -115,12 +145,32 @@ function App() {
 
       {/* Conditional rendering based on selected tab */}
       {view === "collection" && ( //if current tab is collection, render BotCollection
-        <BotCollection bots={bots} onBotClick={setSelectedBot} />
+       <>
+       <SortBar
+         sortBy={sortBy}
+         setSortBy={setSortBy}
+         selectedClasses={selectedClasses}
+         toggleClassFilter={toggleClassFilter}
+       />
+       <BotCollection bots={filteredBots} onBotClick={setSelectedBot} />
+        </>
       )}
 
       {view === "army" && (
-        <YourBotArmy armyBots={army} onBotClick={setSelectedBot} RemoveBot={handleRemoveBot} />
-      )}
+        <>
+        <SortBar
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+          selectedClasses={selectedClasses}
+          toggleClassFilter={toggleClassFilter}
+        />
+        <YourBotArmy
+          armyBots={filteredArmyBots}
+          onBotClick={setSelectedBot}
+          RemoveBot={handleRemoveBot}
+        />
+      </>
+    )}
 
       {view === "compare" && (
         <CompareView bots={bots} army={army} />

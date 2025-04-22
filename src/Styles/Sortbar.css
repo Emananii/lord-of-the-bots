@@ -1,0 +1,30 @@
+.sort-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: #111;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    color: #eee;
+  }
+  
+  .sort-section select {
+    margin-left: 0.5rem;
+    background: #222;
+    color: #eee;
+    border: 1px solid #444;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .filter-section {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .class-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
