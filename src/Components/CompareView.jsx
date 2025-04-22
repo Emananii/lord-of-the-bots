@@ -3,20 +3,29 @@ import BotCard from './BotCard';
 import '../Styles/CompareView.css';
 
 function CompareView({ bots, army, onBotClick }) {
+  // Only get the bots that are not in the army
+  const botsNotInArmy = bots.filter(bot =>
+    !army.some(armyBot => armyBot.id === bot.id)
+  );
+
   return (
     <div className="compare-view">
       <div className="compare-section">
         <h2>Bot Collection</h2>
-        <div className="bot-grid">
-          {bots.map(bot => (
-            <BotCard 
-              key={bot.id} 
-              bot={bot} 
-              handleClick={() => onBotClick(bot)} 
-              isInArmy={false}
-            />
-          ))}
-        </div>
+        {botsNotInArmy.length === 0 ? (
+          <p className="empty-message">All bots have joined your ranks. Glory!</p>
+        ) : (
+          <div className="bot-grid">
+            {botsNotInArmy.map(bot => (
+              <BotCard 
+                key={bot.id} 
+                bot={bot} 
+                handleClick={() => onBotClick(bot)} 
+                isInArmy={false}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="vs-divider">⚔️</div>
